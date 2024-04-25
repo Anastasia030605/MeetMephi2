@@ -4,8 +4,10 @@ spring:
   main:
     banner-mode: off
   datasource:
-    url: jdbc:mysql://localhost:3306/MeetMephi
-    username: user
+    url: "jdbc:mysql://127.0.0.1:3310/meetmephi"
+    username: root
     password: password
+  jpa:
+    generate-ddl: true
 server:
   port: 8000
