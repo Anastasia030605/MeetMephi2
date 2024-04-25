@@ -9,5 +9,10 @@ spring:
     password: password
   jpa:
     generate-ddl: true
+  security:
+    user:
+      name: Nastya
+      password: meowhihi
+
 server:
   port: 8000

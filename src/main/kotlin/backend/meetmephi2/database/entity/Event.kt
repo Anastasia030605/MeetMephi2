@@ -15,7 +15,7 @@ class Event (
     var name : String,
 
     @Column(name = "teacher", nullable = true, length = 100)
-    var teacher : String,
+    var teacher : String?,
 
     @Column(name = "room", nullable = false, length = 50)
     var room : String,

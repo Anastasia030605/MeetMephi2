@@ -11,8 +11,11 @@ class User (
     @Column(name = "surname", nullable = false, length = 30)
     var surname : String,
 
-    @Column(name = "'group'", nullable = false, length = 10)
-    var group : String,
+    @Column(name = "'group'", nullable = true, length = 10)
+    var group : String?,
+
+    @Column(name = "email", nullable = false, length = 100)
+    var email : String,
 
     @ManyToMany
     @JoinTable(
