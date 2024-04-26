@@ -11,4 +11,4 @@ services:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=meetmephi
     ports:
-      - "3306:3306"
+      - "3310:3306"
