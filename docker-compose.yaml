@@ -1,0 +1,14 @@
+version: "3.8"
+
+name: "meetmephi"
+
+services:
+  mysql:
+    image: mysql
+    environment:
+      - MYSQL_USERNAME=root
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=meetmephi
+    ports:
+      - "3306:3306"
