@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page
 interface UserService {
     fun list(): Page<UserResponse>
     fun getById(id: Long) : UserResponse
-    fun create(request: UserRequest)
+    fun create(request: UserRequest): UserResponse
     fun update(id : Long, request: UserRequest) : UserResponse
     fun delete(id : Long)
 }
