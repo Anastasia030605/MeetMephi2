@@ -12,3 +12,8 @@ services:
       - MYSQL_DATABASE=meetmephi
     ports:
       - "3310:3306"
+  frontend:
+    build: ./frontend
+    container_name: frontend_c
+    ports:
+      - '3000:3000'
