@@ -14,6 +14,14 @@ services:
       - "3310:3306"
   frontend:
     build: ./frontend
-    container_name: frontend_c
+    container_name: frontend
     ports:
       - '3000:3000'
+    stdin_open: true
+    tty: true
+  backend:
+    build: .
+    container_name: backend
+    ports:
+      - '8000:8000'
+
