@@ -19,9 +19,4 @@ services:
       - '3000:3000'
     stdin_open: true
     tty: true
-  backend:
-    build: .
-    container_name: backend
-    ports:
-      - '8000:8000'
 
