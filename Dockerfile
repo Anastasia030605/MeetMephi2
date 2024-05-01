@@ -1,12 +1,7 @@
 FROM gradle:8.7-jdk17 AS build
-COPY --chown=gradle:gradle . /home/gradle/src
-WORKDIR /home/gradle/src
-RUN gradle build --no-daemon
-
-FROM openjdk:21
-
-RUN mkdir /app
-
-COPY --from=build /home/gradle/src/build/libs/ /app/
-
-ENTRYPOINT ["java","-jar","/app/kotlin-docker-gradle-app.jar"]
+WORKDIR /app
+COPY . .
+RUN gradle clean build -x test
+EXPOSE 8000
+SHELL ["/bin/bash", "-c"]
+ENTRYPOINT ["java", "-jar", "./build/libs/MeetMephi2-0.0.1-SNAPSHOT.jar"]
