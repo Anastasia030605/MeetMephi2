@@ -11,13 +11,15 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.data.jpa.repository.Modifying
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.awt.print.Pageable
 
 @Service
 class UserServiceImpl(
     private val userDao : UserDao,
-    private val mapper : UserMapper
+    private val mapper : UserMapper,
+    private val passwordEncoder : PasswordEncoder
 ) : UserService {
     override fun list(): Page<UserResponse> {
         val users = userDao.findAll(PageRequest.of(0, 20, Sort.by("surname").ascending()))
@@ -31,7 +33,9 @@ class UserServiceImpl(
 
     @Transactional
     override fun create(request: UserRequest): UserResponse {
-        val user = mapper.asEntity(request).apply { userDao.save(this) }
+        val user = mapper.asEntity(request)
+        user.password = passwordEncoder.encode(user.password)
+        user.apply { userDao.save(this) }
         return mapper.asResponse(user)
     }
 

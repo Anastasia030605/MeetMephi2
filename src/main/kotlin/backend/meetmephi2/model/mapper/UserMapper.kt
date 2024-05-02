@@ -11,7 +11,8 @@ class UserMapper {
         name = request.name,
         email = request.email,
         group = request.group,
-        surname = request.surname
+        surname = request.surname,
+        password = request.password
     )
 
     fun asResponse(user : User) = UserResponse(

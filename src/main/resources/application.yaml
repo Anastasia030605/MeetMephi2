@@ -9,10 +9,11 @@ spring:
     password: password
   jpa:
     generate-ddl: true
-  security:
-    user:
-      name: Nastya
-      password: meowhihi
+  jwt:
+    key: ${JWT_KEY}
+    access-token-expiration: 3600000
+    refresh-token-expiration: 86400000
+
 
 server:
   port: 8000

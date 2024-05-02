@@ -17,6 +17,9 @@ class User (
     @Column(name = "email", nullable = false, length = 100)
     var email : String,
 
+    @Column(name = "password", nullable = false, length = 100)
+    var password : String,
+
     @ManyToMany
     @JoinTable(
         name = "'friends'",

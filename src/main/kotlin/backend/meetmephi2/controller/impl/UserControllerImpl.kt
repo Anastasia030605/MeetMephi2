@@ -6,6 +6,7 @@ import backend.meetmephi2.model.request.UserRequest
 import backend.meetmephi2.model.response.UserResponse
 import backend.meetmephi2.service.UserService
 import org.springframework.data.domain.Page
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -18,7 +19,8 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/user")
 class UserControllerImpl(
-    private val service : UserService
+    private val service : UserService,
+    private val encoder : PasswordEncoder
 ) : UserController {
     @GetMapping
     override fun list(): Page<UserResponse> = service.list()
@@ -37,4 +39,5 @@ class UserControllerImpl(
         service.delete(id)
         return DeletedMessage()
     }
+
 }
