@@ -3,6 +3,7 @@ package backend.meetmephi2.service
 import backend.meetmephi2.config.JwtProperties
 import backend.meetmephi2.controller.auth.AuthenticationRequest
 import backend.meetmephi2.controller.auth.AuthenticationResponse
+import backend.meetmephi2.database.dao.UserDao
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -14,7 +15,7 @@ class AuthenticationService (
     private val authManager: AuthenticationManager,
     private val tokenService: TokenService,
     private val jwtProperties: JwtProperties,
-    private val userDetailsService: UserDetailsService,
+    private val userDetailsService: CustomUserDetailsService,
 )  {
     fun authentication(authRequest: AuthenticationRequest): AuthenticationResponse{
         authManager.authenticate(

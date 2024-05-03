@@ -20,6 +20,9 @@ class User (
     @Column(name = "password", nullable = false, length = 100)
     var password : String,
 
+    @Column(name = "role", nullable = false, length = 100)
+    var role : Role,
+
     @ManyToMany
     @JoinTable(
         name = "'friends'",
