@@ -13,6 +13,6 @@ class AuthController (
     private val authenticationService: AuthenticationService
 ) {
     @PostMapping
-    fun authenticate(@RequestBody authRequest: AuthenticationRequest) =
-        "Hello world"
+    fun authenticate(@RequestBody authRequest: AuthenticationRequest) : AuthenticationResponse =
+        authenticationService.authentication(authRequest)
 }
