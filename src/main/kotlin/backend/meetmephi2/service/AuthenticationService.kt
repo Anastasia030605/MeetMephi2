@@ -15,7 +15,7 @@ class AuthenticationService (
     private val authManager: AuthenticationManager,
     private val tokenService: TokenService,
     private val jwtProperties: JwtProperties,
-    private val userDetailsService: CustomUserDetailsService,
+    private val userDetailsService: CustomUserDetailsService
 )  {
     fun authentication(authRequest: AuthenticationRequest): AuthenticationResponse{
         authManager.authenticate(
