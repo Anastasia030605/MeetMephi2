@@ -13,9 +13,8 @@ import java.util.Date
 class TokenService(
     jwtProperties: JwtProperties
 ) {
-    private val secretKey = Keys.hmacShaKeyFor(
-        jwtProperties.key.toByteArray()
-    )
+    private val secret = "someBigSecretKey123someBigSecretKey123someBigSecretKey123someBigSecretKey123someBigSecretKey123someBigSecretKey123someBigSecretKey123"
+    private val secretKey = Keys.hmacShaKeyFor(secret.toByteArray())
 
     fun generate(
         userDetails: UserDetails,
@@ -35,11 +34,13 @@ class TokenService(
     fun extractEmail(token: String) : String? =
         getAllClaims(token)
             .subject
+            .also { println("SYKA: $it") }
 
     fun isExpired(token: String) : Boolean =
         getAllClaims(token)
             .expiration
             .before(Date())
+
 
     fun isValid(token: String, user : User?) : Boolean {
         val email = extractEmail(token)

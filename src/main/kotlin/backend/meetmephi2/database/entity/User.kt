@@ -1,6 +1,7 @@
 package backend.meetmephi2.database.entity
 
 import jakarta.persistence.*
+import org.springframework.security.core.userdetails.UserDetails
 
 @Entity
 @Table(name = "'user'")
@@ -34,4 +35,11 @@ class User (
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
     val events: Set<Event> = HashSet()
 
-): AbstractEntity()
+): AbstractEntity() {
+    fun mapToUserDetails() =
+        org.springframework.security.core.userdetails.User.builder()
+            .username(this.email)
+            .password(this.password)
+            .roles(this.role.name)
+            .build()
+}

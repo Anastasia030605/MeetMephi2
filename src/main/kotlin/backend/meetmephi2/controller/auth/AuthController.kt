@@ -8,11 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/public/auth")
 class AuthController (
     private val authenticationService: AuthenticationService
 ) {
-    @PostMapping
-    fun authenticate(@RequestBody authRequest: AuthenticationRequest) : AuthenticationResponse =
-        authenticationService.authentication(authRequest)
+    @PostMapping("/login")
+    fun login(@RequestBody authRequest: AuthenticationRequest) : AuthenticationResponse =
+        authenticationService.login(authRequest)
+
+
+    @PostMapping("/registration")
+    fun registration(@RequestBody authRequest: RegistrationRequest) : AuthenticationResponse =
+        authenticationService.register(authRequest)
 }

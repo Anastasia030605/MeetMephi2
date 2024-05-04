@@ -36,6 +36,11 @@ class JwtAuthenticationFilter (
         if(email != null && SecurityContextHolder.getContext().authentication == null) {
             val foundUser = dao.findByEmail(email)
 
+            print("--------------------------------\n")
+            println("COOL TOKEN: $jwtToken")
+            print("--------------------------------\n")
+
+
             if(tokenService.isValid(jwtToken, foundUser)) {
                 updateContext(foundUser, request)
             }

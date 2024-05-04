@@ -1,6 +1,6 @@
 package backend.meetmephi2.controller.auth
 
-data class AuthenticationRequest(
+open class AuthenticationRequest(
     val email: String,
     val password: String
 )

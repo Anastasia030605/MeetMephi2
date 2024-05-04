@@ -22,12 +22,12 @@ class SecurityConfiguration(private val authenticationProvider: AuthenticationPr
             .csrf { it.disable() }
             .authorizeHttpRequests {
                 it
-                    .requestMatchers("/auth", "/auth/refresh", "/error")
+                    .requestMatchers("/admin**")
+                    .hasAnyRole("ADMIN")
+                    .requestMatchers("/public/**")
                     .permitAll()
-                    .requestMatchers(HttpMethod.POST, "/user")
-                    .permitAll()
-                    .requestMatchers("/user**")
-                    .hasRole("ADMIN")
+                    .requestMatchers( "**")
+                    .hasAnyRole("USER")
                     .anyRequest()
                     .fullyAuthenticated()
             }
