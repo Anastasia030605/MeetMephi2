@@ -1,5 +1,6 @@
 package backend.meetmephi2.model.mapper
 
+import backend.meetmephi2.database.dao.UserDao
 import backend.meetmephi2.database.entity.User
 import backend.meetmephi2.model.request.UserRequest
 import org.springframework.data.domain.Page
@@ -11,7 +12,8 @@ import org.springframework.stereotype.Component
 
 @Component
 class UserMapper(
-    private val passwordEncoder : PasswordEncoder
+    private val passwordEncoder : PasswordEncoder,
+    private val userDao: UserDao
 ) {
     fun asEntity(request: UserRequest) = User(
         name = request.name,
@@ -32,9 +34,13 @@ class UserMapper(
     )
 
     fun update(user: User, request: UserRequest) : User{
+        if(userDao.findByEmail(request.email) != null && user.email != request.email){
+            throw Exception("Another user have this email")
+        }
         user.name = request.name
         user.surname = request.surname
         user.role = request.role
+        user.email = request.email
         user.group = request.group
         user.password = passwordEncoder.encode(request.password)
         return user

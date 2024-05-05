@@ -5,6 +5,7 @@ import backend.meetmephi2.database.entity.User
 import backend.meetmephi2.model.mapper.UserMapper
 import backend.meetmephi2.model.request.UserRequest
 import backend.meetmephi2.model.response.UserResponse
+import backend.meetmephi2.service.TokenService
 import backend.meetmephi2.service.UserService
 import jakarta.transaction.Transactional
 import org.springframework.data.domain.Page
@@ -19,7 +20,8 @@ import java.awt.print.Pageable
 class UserServiceImpl(
     private val userDao : UserDao,
     private val mapper : UserMapper,
-    private val passwordEncoder : PasswordEncoder
+    private val passwordEncoder : PasswordEncoder,
+    private val tokenService: TokenService
 ) : UserService {
     override fun list(): Page<UserResponse> {
         val users = userDao.findAll(PageRequest.of(0, 20, Sort.by("surname").ascending()))
@@ -41,17 +43,24 @@ class UserServiceImpl(
 
     @Transactional
     @Modifying
-    override fun update(id: Long, request: UserRequest): UserResponse {
+    override fun update(accessToken: String, id: Long, request: UserRequest): UserResponse {
+        val Token = accessToken.substring(7)
         val user = userDao.findEntityById(id) ?: throw Exception("Not found")
+        if(tokenService.extractEmail(Token) != user.email){
+            throw Exception("Not your user")
+        }
         val updated = mapper.update(user, request)
         return mapper.asResponse(updated)
     }
 
     @Transactional
     @Modifying
-    override fun delete(id: Long) {
+    override fun delete(accessToken: String, id: Long) {
+        val Token = accessToken.substring(7)
         val user = userDao.findEntityById(id) ?: throw Exception("Not found")
+        if(tokenService.extractEmail(Token) != user.email){
+            throw Exception("Not your user")
+        }
         userDao.delete(user)
-        TODO("Not yet implemented")
     }
 }

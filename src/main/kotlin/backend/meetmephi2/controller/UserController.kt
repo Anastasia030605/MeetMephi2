@@ -9,6 +9,6 @@ interface UserController {
     fun list(): Page<UserResponse>
     fun getById(id: Long) : UserResponse
     fun create(request: UserRequest) : UserResponse
-    fun update(id : Long, request: UserRequest) : UserResponse
-    fun delete(id : Long): DeletedMessage
+    fun update(accessToken: String, id : Long, request: UserRequest) : UserResponse
+    fun delete(accessToken: String, id : Long): DeletedMessage
 }

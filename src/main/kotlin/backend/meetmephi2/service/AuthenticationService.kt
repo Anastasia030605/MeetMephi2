@@ -51,6 +51,9 @@ class AuthenticationService (
             role = Role.USER,
             password = Configuration().encoder().encode(request.password)
         )
+        if(userDao.findByEmail(user.email) != null){
+            throw Exception("Another user have this email")
+        }
         userDao.save(user)
         val accessToken = tokenService.generate(
             userDetails = user.mapToUserDetails(),
