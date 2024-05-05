@@ -58,22 +58,4 @@ class AuthenticationService (
         )
         return AuthenticationResponse(accessToken)
     }
-
-    fun logout(authRequest: AuthenticationRequest): AuthenticationResponse{
-        authManager.authenticate(
-            UsernamePasswordAuthenticationToken(
-                authRequest.email,
-                authRequest.password
-            )
-        )
-        val user = userDetailsService.loadUserByUsername(authRequest.email)
-        val accessToken = tokenService.generate(
-            userDetails = user,
-            expirationDate = Date(System.currentTimeMillis() + jwtProperties.accessTokenExpiration)
-        )
-
-        return AuthenticationResponse(
-            accessToken = accessToken
-        )
-    }
 }

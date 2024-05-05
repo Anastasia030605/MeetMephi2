@@ -20,8 +20,4 @@ class AuthController (
     @PostMapping("/registration")
     fun registration(@RequestBody authRequest: RegistrationRequest) : AuthenticationResponse =
         authenticationService.register(authRequest)
-
-    @PostMapping("/logout")
-    fun logout(@RequestBody authRequest: AuthenticationRequest) : AuthenticationResponse =
-        authenticationService.logout(authRequest)
 }
