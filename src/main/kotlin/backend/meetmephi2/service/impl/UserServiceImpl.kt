@@ -23,7 +23,7 @@ class UserServiceImpl(
 ) : UserService {
     override fun list(): Page<UserResponse> {
         val users = userDao.findAll(PageRequest.of(0, 20, Sort.by("surname").ascending()))
-        TODO("Not yet implemented")
+        return mapper.asPageResponse(users)
     }
 
     override fun getById(id: Long): UserResponse {

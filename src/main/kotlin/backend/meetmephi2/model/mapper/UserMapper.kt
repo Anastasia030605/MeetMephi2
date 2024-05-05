@@ -2,7 +2,11 @@ package backend.meetmephi2.model.mapper
 
 import backend.meetmephi2.database.entity.User
 import backend.meetmephi2.model.request.UserRequest
+import org.springframework.data.domain.Page
 import backend.meetmephi2.model.response.UserResponse
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Component
 
 @Component
@@ -25,5 +29,9 @@ class UserMapper {
         createdAt = user.createdAt
     )
 
-    fun asListResponse(users : Collection<User>) = users.map { asResponse(it) }
+    fun asPageResponse(users : Page<User>) : PageImpl<UserResponse>{
+        val list = users.content.map { asResponse(it) }
+        val pageable = PageRequest.of(users.number, users.size)
+        return PageImpl<UserResponse>(list, pageable, users.totalElements)
+    }
 }
