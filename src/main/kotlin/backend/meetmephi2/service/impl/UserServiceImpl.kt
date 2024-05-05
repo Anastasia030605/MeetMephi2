@@ -43,7 +43,8 @@ class UserServiceImpl(
     @Modifying
     override fun update(id: Long, request: UserRequest): UserResponse {
         val user = userDao.findEntityById(id) ?: throw Exception("Not found")
-        TODO("Not yet implemented")
+        val updated = mapper.update(user, request)
+        return mapper.asResponse(updated)
     }
 
     @Transactional

@@ -30,7 +30,7 @@ class User (
         joinColumns = [JoinColumn(name = "user_id")],
         inverseJoinColumns = [JoinColumn(name = "friend_id")]
     )
-    val friends : Set<User> = HashSet(),
+    var friends : Set<User> = HashSet(),
 
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
     val events: Set<Event> = HashSet()

@@ -6,11 +6,13 @@ import org.springframework.data.domain.Page
 import backend.meetmephi2.model.response.UserResponse
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Pageable
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 
 @Component
-class UserMapper {
+class UserMapper(
+    private val passwordEncoder : PasswordEncoder
+) {
     fun asEntity(request: UserRequest) = User(
         name = request.name,
         email = request.email,
@@ -28,6 +30,15 @@ class UserMapper {
         id = user.id,
         createdAt = user.createdAt
     )
+
+    fun update(user: User, request: UserRequest) : User{
+        user.name = request.name
+        user.surname = request.surname
+        user.role = request.role
+        user.group = request.group
+        user.password = passwordEncoder.encode(request.password)
+        return user
+    }
 
     fun asPageResponse(users : Page<User>) : PageImpl<UserResponse>{
         val list = users.content.map { asResponse(it) }
